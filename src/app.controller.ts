@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
 import { AppService } from "./app.service";
-import { ResponseFactory } from "./factories/response.factory";
+import { ResponseFactory } from "./utilitys/response.utility";
 import { ResponseFormat, ServerStatusExtras } from "./interfaces";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 

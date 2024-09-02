@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import * as Yup from "yup";
-import { formatCpuUsage, formatMemoryUsage, formatUptime } from "./helpers";
+import { FormatUtility } from "./utilitys";
 import { ServerStatusExtras } from "./interfaces";
 
 @Injectable()
@@ -23,15 +23,15 @@ export class AppService {
     getServerStatus(): ServerStatusExtras {
         return {
             estado: "En ejecución",
-            tiempoActivo: formatUptime(process.uptime()),
+            tiempoActivo: FormatUtility.formatUptime(process.uptime()),
             memoria: {
-                rss: formatMemoryUsage(process.memoryUsage().rss),
-                heapTotal: formatMemoryUsage(process.memoryUsage().heapTotal),
-                heapUsado: formatMemoryUsage(process.memoryUsage().heapUsed),
+                rss: FormatUtility.formatMemoryUsage(process.memoryUsage().rss),
+                heapTotal: FormatUtility.formatMemoryUsage(process.memoryUsage().heapTotal),
+                heapUsado: FormatUtility.formatMemoryUsage(process.memoryUsage().heapUsed),
             },
             cpu: {
-                usuario: formatCpuUsage(process.cpuUsage().user),
-                sistema: formatCpuUsage(process.cpuUsage().system),
+                usuario: FormatUtility.formatCpuUsage(process.cpuUsage().user),
+                sistema: FormatUtility.formatCpuUsage(process.cpuUsage().system),
             },
             plataforma: process.platform,
             versionNode: process.version,
