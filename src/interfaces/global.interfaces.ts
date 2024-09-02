@@ -2,9 +2,9 @@
 export type ResponseStyles = "success" | "error" | "warning" | "info";
 
 // Modificado el ResponseFormat para usar el nuevo tipo
-export interface ResponseFormat<T = unknown> {
-    message: string;
-    styles: ResponseStyles; // Cambiado a ResponseStyles
+export interface ResponseFormat<T = object> {
+    message?: string;
+    styles?: ResponseStyles; // Cambiado a ResponseStyles
     extras?: T;
 }
 
