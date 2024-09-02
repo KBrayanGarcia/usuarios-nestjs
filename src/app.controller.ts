@@ -2,11 +2,14 @@ import { Body, Controller, Get, Post } from "@nestjs/common";
 import { AppService } from "./app.service";
 import { ResponseFactory } from "./factories/response.factory";
 import { ResponseFormat, ServerStatusExtras } from "./interfaces";
+import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 
-@Controller()
+@ApiTags("SERVIDOR Y PRUEBAS")
+@Controller("/server")
 export class AppController {
     constructor(private readonly appService: AppService) {}
 
+    @ApiOperation({ summary: "Obtener el estado del servidor" })
     @Get("/status")
     getStatusServer(): ResponseFormat<ServerStatusExtras> {
         const datos = this.appService.getServerStatus();
@@ -16,7 +19,8 @@ export class AppController {
         });
     }
 
-    @Get()
+    @ApiOperation({ summary: "Simular un error" })
+    @Get("/simulate-error")
     getSimulateError() {
         this.appService.simulateError();
         return ResponseFactory.createResponse({
@@ -25,7 +29,12 @@ export class AppController {
         });
     }
 
-    @Post()
+    @ApiOperation({
+        summary: "Validar datos",
+        description:
+            "Valida los datos del usuario, y muestra los datos validados, ademas, en caso de que los datos no sean validados, se mostrara un mensaje de error",
+    })
+    @Post("/validate-data")
     async validateData(@Body() data: any) {
         const validatedData = await this.appService.validateData(data);
         return ResponseFactory.createResponse({
