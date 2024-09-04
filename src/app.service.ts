@@ -1,5 +1,4 @@
 import { Injectable } from "@nestjs/common";
-import * as Yup from "yup";
 import { FormatUtility } from "./utilitys";
 import { ServerStatusExtras } from "./interfaces";
 
@@ -11,13 +10,7 @@ export class AppService {
     }
 
     async validateData(data: any): Promise<any> {
-        const schema = Yup.object().shape({
-            name: Yup.string().required("El nombre es obligatorio"),
-            age: Yup.number().positive().integer().required("La edad es obligatoria"),
-        });
-
-        const datos = await schema.validate(data, { abortEarly: false });
-        return datos;
+        return data;
     }
 
     getServerStatus(): ServerStatusExtras {
