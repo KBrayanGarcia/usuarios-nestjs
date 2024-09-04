@@ -1,7 +1,7 @@
 import { HttpStatus } from "@nestjs/common";
 import { CustomErrorClass } from "src/helper_classes";
 
-export class ErrorHandler {
+export class ErrorUtility {
     static handleError(error: any): never {
         let message: string;
         let statusCode: number;
