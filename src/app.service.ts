@@ -1,15 +1,20 @@
 import { Injectable } from "@nestjs/common";
 import { FormatUtility } from "./utilitys";
 import { ServerStatusExtras } from "./interfaces";
+import { ValidateDataTestDto } from "./dtos";
+import { CustomErrorClass } from "./helper_classes";
 
 @Injectable()
 export class AppService {
     // Método para simular un error
     simulateError(): never {
-        throw new Error("Error provocado para probar el error asad");
+        throw new CustomErrorClass({
+            message: "Error provocado para probar el error asad",
+            statusCode: 400,
+        });
     }
 
-    async validateData(data: any): Promise<any> {
+    async validateData(data: ValidateDataTestDto): Promise<ValidateDataTestDto> {
         return data;
     }
 

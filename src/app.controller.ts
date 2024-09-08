@@ -3,6 +3,7 @@ import { AppService } from "./app.service";
 import { ResponseUtility } from "./utilitys/response.utility";
 import { ResponseFormat, ServerStatusExtras } from "./interfaces";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ValidateDataTestDto } from "./dtos";
 
 @ApiTags("SERVIDOR Y PRUEBAS")
 @Controller("/server")
@@ -35,7 +36,7 @@ export class AppController {
             "Valida los datos del usuario, y muestra los datos validados, ademas, en caso de que los datos no sean validados, se mostrara un mensaje de error",
     })
     @Post("/validate-data")
-    async validateData(@Body() data: any) {
+    async validateData(@Body() data: ValidateDataTestDto) {
         const validatedData = await this.appService.validateData(data);
         return ResponseUtility.createResponse({
             message: "Datos validados correctamente",

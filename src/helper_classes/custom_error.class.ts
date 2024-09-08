@@ -1,25 +1,25 @@
 import { HttpException, Logger } from "@nestjs/common";
 import * as fs from "fs";
-import { CustomErrorParams, SuoerErrorParams, ResponseStyles } from "src/interfaces";
+import { CustomErrorParams, SuoerErrorParams, ResponseStyles, ExtrasErrorType, ExtrarErrorPickCampos } from "src/interfaces";
 import { v4 as uuidv4 } from "uuid";
 
 /**
  * @description Esta clase se encarga de generar un error personalizado e instancía un error de aplicación, exclusivamente los registra en un archivo de log.
  * @IMPORTANT Esta clase **NO construye el objeto de respuesta**, sino que se encarga de registrar el error en un archivo de log.
  */
-export class CustomErrorClass extends HttpException {
+export class CustomErrorClass<T = ExtrarErrorPickCampos> extends HttpException {
     readonly logger = new Logger(CustomErrorClass.name);
     message: string = "";
     statusCode: number = 500;
     styles: ResponseStyles;
-    extras: any;
+    extras: ExtrasErrorType<T>;
     uuid: string;
 
-    constructor(response: CustomErrorParams) {
+    constructor(response: CustomErrorParams<T>) {
         const uuid = uuidv4();
         const styles = response.statusCode >= 400 && response.statusCode < 500 ? "warning" : "error";
 
-        const data_error: SuoerErrorParams = {
+        const data_error: SuoerErrorParams<T> = {
             message: response.message,
             styles,
             extras: {

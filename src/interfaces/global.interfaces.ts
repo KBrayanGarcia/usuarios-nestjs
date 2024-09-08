@@ -11,13 +11,29 @@ export interface ResponseFormat<T = object> {
 // Definición del tipo para evitar repetición
 export type ResponsePick = Pick<ResponseFormat<any>, "message" | "extras">;
 
-export interface CustomErrorParams {
+export interface ErrorCampos {
+    path: string;
     message: string;
-    statusCode: number;
-    extras?: Record<string, any>;
 }
 
-export interface SuoerErrorParams extends ResponseFormat<{ uuid: string }> {}
+export interface ExtrasError {
+    errores_campos?: ErrorCampos[];
+    uuid?: string;
+}
+
+export type ExtrarErrorPickCampos = Pick<ExtrasError, "errores_campos">;
+
+export type ExtrasErrorType<T = ExtrarErrorPickCampos> = T extends ExtrarErrorPickCampos
+    ? ExtrarErrorPickCampos
+    : Required<Extract<T, { [key: string]: any }>> & ExtrarErrorPickCampos;
+
+export interface CustomErrorParams<T = ExtrarErrorPickCampos> {
+    message: string;
+    statusCode: number;
+    extras?: ExtrasErrorType<T>;
+}
+
+export interface SuoerErrorParams<T = ExtrarErrorPickCampos> extends ResponseFormat<ExtrasErrorType<T>> {}
 
 // Agregar la interfaz ServerStatusExtras
 export interface ServerStatusExtras {
