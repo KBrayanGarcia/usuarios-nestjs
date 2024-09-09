@@ -1,14 +1,20 @@
-import { HttpException, Logger } from "@nestjs/common";
-import * as fs from "fs";
-import { CustomErrorParams, SuoerErrorParams, ResponseStyles, ExtrasErrorType, ExtrarErrorPickCampos } from "src/interfaces";
+import { HttpException } from "@nestjs/common";
+import {
+    CustomErrorParams,
+    SuperErrorParams,
+    ResponseStyles,
+    ExtrasErrorType,
+    ExtrasError,
+} from "src/interfaces";
 import { v4 as uuidv4 } from "uuid";
+import { CustomLogger } from "./logger.class";
 
 /**
  * @description Esta clase se encarga de generar un error personalizado e instancía un error de aplicación, exclusivamente los registra en un archivo de log.
  * @IMPORTANT Esta clase **NO construye el objeto de respuesta**, sino que se encarga de registrar el error en un archivo de log.
  */
-export class CustomErrorClass<T = ExtrarErrorPickCampos> extends HttpException {
-    readonly logger = new Logger(CustomErrorClass.name);
+export class CustomErrorClass<T = ExtrasError> extends HttpException {
+    readonly logger = new CustomLogger(CustomErrorClass.name);
     message: string = "";
     statusCode: number = 500;
     styles: ResponseStyles;
@@ -19,7 +25,7 @@ export class CustomErrorClass<T = ExtrarErrorPickCampos> extends HttpException {
         const uuid = uuidv4();
         const styles = response.statusCode >= 400 && response.statusCode < 500 ? "warning" : "error";
 
-        const data_error: SuoerErrorParams<T> = {
+        const data_error: SuperErrorParams<T> = {
             message: response.message,
             styles,
             extras: {
@@ -35,27 +41,11 @@ export class CustomErrorClass<T = ExtrarErrorPickCampos> extends HttpException {
         this.extras = response.extras;
         this.uuid = uuid;
         this.styles = styles;
-        this.logger.error("ERROR INTERCEPTADO:", data_error);
-        this.logErrorToFile();
-    }
 
-    private logErrorToFile(): void {
-        const errorId = uuidv4();
-        const logDir = `${__dirname}/../logs/${this.styles}`;
-        if (!fs.existsSync(logDir)) {
-            fs.mkdirSync(logDir, { recursive: true });
+        if (styles === "error") {
+            this.logger.error(data_error, this.stack);
+        } else if (styles === "warning") {
+            this.logger.warn(data_error, this.stack);
         }
-        const errorLog = `${new Date().toISOString()} - ID: ${errorId} - Error: ${JSON.stringify(this.getProperties())}\n`;
-        fs.appendFileSync(`${logDir}/error.log`, errorLog);
-    }
-
-    private getProperties() {
-        return {
-            message: this.message,
-            statusCode: this.statusCode,
-            extras: this.extras,
-            uuid: this.uuid,
-            styles: this.styles,
-        };
     }
 }

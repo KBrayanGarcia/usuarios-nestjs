@@ -10,7 +10,7 @@ export class AppService {
     simulateError(): never {
         throw new CustomErrorClass({
             message: "Error provocado para probar el error asad",
-            statusCode: 400,
+            statusCode: 500,
         });
     }
 

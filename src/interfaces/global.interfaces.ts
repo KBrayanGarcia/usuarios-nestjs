@@ -21,19 +21,18 @@ export interface ExtrasError {
     uuid?: string;
 }
 
-export type ExtrarErrorPickCampos = Pick<ExtrasError, "errores_campos">;
 
-export type ExtrasErrorType<T = ExtrarErrorPickCampos> = T extends ExtrarErrorPickCampos
-    ? ExtrarErrorPickCampos
-    : Required<Extract<T, { [key: string]: any }>> & ExtrarErrorPickCampos;
+export type ExtrasErrorType<T = ExtrasError> = T extends ExtrasError
+    ? ExtrasError
+    : Required<Extract<T, { [key: string]: any }>> & ExtrasError;
 
-export interface CustomErrorParams<T = ExtrarErrorPickCampos> {
+export interface CustomErrorParams<T = ExtrasError> {
     message: string;
     statusCode: number;
     extras?: ExtrasErrorType<T>;
 }
 
-export interface SuoerErrorParams<T = ExtrarErrorPickCampos> extends ResponseFormat<ExtrasErrorType<T>> {}
+export interface SuperErrorParams<T = ExtrasError> extends ResponseFormat<ExtrasErrorType<T>> {}
 
 // Agregar la interfaz ServerStatusExtras
 export interface ServerStatusExtras {
