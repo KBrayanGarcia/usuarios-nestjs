@@ -33,7 +33,7 @@ export class AppController {
     }
 
     @ApiOperation({
-        summary: "Validar datos",
+        summary: "Validar datos de prueba - Endpoint de testeo de validaciones de campos",
         description:
             "Valida los datos del usuario, y muestra los datos validados, ademas, en caso de que los datos no sean validados, se mostrara un mensaje de error",
     })
