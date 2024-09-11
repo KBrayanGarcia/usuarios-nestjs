@@ -1,12 +1,22 @@
 import { format } from "date-fns";
 
 export class DateServer {
+    private static customDate: Date | null = null;
+
+    /**
+     * Establece una fecha personalizada para uso en los métodos getUTCDate y getLocalDate.
+     * @param {string} date Fecha personalizada en formato 'yyyy-MM-dd HH:mm:ss'.
+     */
+    static setCustomDate(date: string | null): void {
+        DateServer.customDate = date ? new Date(date) : null;
+    }
+
     /**
      * Obtiene la fecha actual del servidor en formato UTC (Universal Time Coordinated).
      * @returns {Date} Fecha actual en formato UTC.
      */
     static getUTCDate(): Date {
-        return new Date();
+        return DateServer.customDate ?? new Date();
     }
 
     /**
@@ -14,7 +24,7 @@ export class DateServer {
      * @returns {Date} Fecha actual en la zona horaria local.
      */
     static getLocalDate(): Date {
-        const now = new Date();
+        const now = DateServer.customDate ?? new Date();
         const localOffset = now.getTimezoneOffset() * 60000; // Offset en milisegundos
         return new Date(now.getTime() - localOffset);
     }

@@ -1,10 +1,9 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsDateString, IsEnum, IsOptional } from "class-validator";
 import { LogLevel } from "src/helper_classes";
-import { DateServer } from "src/helper_classes";
 
 const format_date = "yyyy-MM-dd";
-const date_value_default: string = DateServer.formatDate(DateServer.getUTCDate(), format_date);
+const date_value_default: string = "2024-01-01";
 
 export class LogsQueryDto {
     @IsEnum(LogLevel, { message: `El nivel de log debe ser '${Object.values(LogLevel).join("', '")}'` })

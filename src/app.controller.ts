@@ -3,7 +3,7 @@ import { AppService } from "./app.service";
 import { ResponseUtility } from "./utilitys/response.utility";
 import { ResponseFormat, ServerStatusExtras } from "./interfaces";
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { ValidateDataTestDto, LogsQueryDto } from "./dtos";
+import { ValidateDataTestDto, LogsQueryDto, SetServerDateDto } from "./dtos";
 import { Response } from "express";
 import { LogLevel } from "./helper_classes";
 
@@ -56,6 +56,35 @@ export class AppController {
         return ResponseUtility.createResponse({
             message: "Logs obtenidos correctamente",
             extras: { logs },
+        });
+    }
+
+    @ApiOperation({ summary: "Obtener la fecha del servidor en formato UTC y local" })
+    @Get("/date")
+    getServerDate() {
+        const utcDate = this.appService.getServerUTCDate();
+        const localDate = this.appService.getServerLocalDate();
+        return ResponseUtility.createResponse({
+            message: "Fechas del servidor obtenidas correctamente",
+            extras: { fecha_universal: utcDate, fecha_local: localDate },
+        });
+    }
+
+    @ApiOperation({ summary: "Establecer una fecha personalizada en el servidor" })
+    @Post("/set-date")
+    setServerDate(@Body() data: SetServerDateDto) {
+        this.appService.setServerDate(data.date);
+        return ResponseUtility.createResponse({
+            message: "Fecha personalizada establecida correctamente en el servidor",
+        });
+    }
+
+    @ApiOperation({ summary: "Restablecer la fecha del servidor a la actual" })
+    @Post("/reset-date")
+    resetServerDate() {
+        this.appService.resetServerDate();
+        return ResponseUtility.createResponse({
+            message: "Fecha del servidor restablecida a la actual",
         });
     }
 }

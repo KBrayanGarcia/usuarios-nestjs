@@ -7,6 +7,7 @@ import { LogsQueryDto } from "./dtos";
 import { readFile } from "fs/promises";
 import { join } from "path";
 import { existsSync } from "fs";
+import { DateServer } from "./helper_classes";
 
 @Injectable()
 export class AppService {
@@ -59,5 +60,21 @@ export class AppService {
             .split("\n")
             .filter((line) => line.trim() !== "")
             .map((line) => JSON.parse(line));
+    }
+
+    getServerUTCDate(): Date {
+        return DateServer.getUTCDate();
+    }
+
+    getServerLocalDate(): Date {
+        return DateServer.getLocalDate();
+    }
+
+    setServerDate(date: string): void {
+        DateServer.setCustomDate(date);
+    }
+
+    resetServerDate(): void {
+        DateServer.setCustomDate(null);
     }
 }
