@@ -4,14 +4,17 @@ import { createLogger, format, transports } from "winston";
 import "winston-daily-rotate-file";
 
 const carpeta_logs = `${__dirname}/../logs`;
-
+export enum LogLevel {
+    ERROR = "error",
+    WARN = "warn",
+}
 // Función para crear un logger de Winston con configuración compartida
 const createWinstonLogger = (level: string, dirname: string) => createLogger({
     transports: [
         new transports.DailyRotateFile({
             level,
             filename: `${level}-%DATE%.log`,
-            datePattern: "DD-MM-YYYY",
+            datePattern: "YYYY-MM-DD",
             zippedArchive: true,
             maxSize: "20m",
             maxFiles: "14d",
@@ -23,12 +26,12 @@ const createWinstonLogger = (level: string, dirname: string) => createLogger({
         format.printf(({ timestamp, level, message }) => {
             return `${timestamp} [${level}]: ${message}`;
         }),
-        format.prettyPrint()
+        format.json()
     ),
 });
 
-const winstonLoggerError = createWinstonLogger("error", "error");
-const winstonLoggerWarn = createWinstonLogger("warn", "warn");
+const winstonLoggerError = createWinstonLogger(LogLevel.ERROR, LogLevel.ERROR);
+const winstonLoggerWarn = createWinstonLogger(LogLevel.WARN, LogLevel.WARN);
 
 export class CustomLogger extends Logger {
     error(object: SuperErrorParams, trace?: string) {

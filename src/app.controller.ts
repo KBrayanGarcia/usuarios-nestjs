@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post, Query, Res } from "@nestjs/common";
 import { AppService } from "./app.service";
 import { ResponseUtility } from "./utilitys/response.utility";
 import { ResponseFormat, ServerStatusExtras } from "./interfaces";
-import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { ValidateDataTestDto } from "./dtos";
+import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ValidateDataTestDto, LogsQueryDto } from "./dtos";
+import { Response } from "express";
+import { LogLevel } from "./helper_classes";
 
 @ApiTags("SERVIDOR Y PRUEBAS")
 @Controller("/server")
@@ -41,6 +43,19 @@ export class AppController {
         return ResponseUtility.createResponse({
             message: "Datos validados correctamente",
             extras: validatedData,
+        });
+    }
+
+    @ApiOperation({
+        summary: "Obtener los logs del servidor",
+        description: "Obtiene los logs del servidor segun el nivel y la fecha",
+    })
+    @Get("/logs")
+    async getLogsJson(@Query() query: LogsQueryDto) {
+        const logs = await this.appService.getLogs(query);
+        return ResponseUtility.createResponse({
+            message: "Logs obtenidos correctamente",
+            extras: { logs },
         });
     }
 }
