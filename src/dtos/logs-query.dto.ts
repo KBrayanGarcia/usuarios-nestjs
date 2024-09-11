@@ -4,7 +4,7 @@ import { LogLevel } from "src/helper_classes";
 import { DateServer } from "src/helper_classes";
 
 const format_date = "yyyy-MM-dd";
-const date_value_default: string = DateServer.formatDate(DateServer.getLocalDate(), format_date);
+const date_value_default: string = DateServer.formatDate(DateServer.getUTCDate(), format_date);
 
 export class LogsQueryDto {
     @IsEnum(LogLevel, { message: `El nivel de log debe ser '${Object.values(LogLevel).join("', '")}'` })
