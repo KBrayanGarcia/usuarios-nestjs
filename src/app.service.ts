@@ -7,10 +7,12 @@ import { LogsQueryDto } from "./dtos";
 import { readFile } from "fs/promises";
 import { join } from "path";
 import { existsSync } from "fs";
-import { DateServer } from "./helper_classes";
+import { DateService } from "./services";
 
 @Injectable()
 export class AppService {
+    constructor(private readonly dateService: DateService) {}
+
     // Método para simular un error
     simulateError(): never {
         throw new CustomErrorClass({
@@ -63,18 +65,18 @@ export class AppService {
     }
 
     getServerUTCDate(): Date {
-        return DateServer.getUTCDate();
+        return this.dateService.getUTCDate();
     }
 
     getServerLocalDate(): Date {
-        return DateServer.getLocalDate();
+        return this.dateService.getLocalDate();
     }
 
     setServerDate(date: string): void {
-        DateServer.setCustomDate(date);
+        this.dateService.setCustomDate(date);
     }
 
     resetServerDate(): void {
-        DateServer.setCustomDate(null);
+        this.dateService.setCustomDate(null);
     }
 }
