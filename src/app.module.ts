@@ -5,13 +5,21 @@ import { DateService } from "./services/date.service"; // Importar el nuevo serv
 import { APP_INTERCEPTOR, APP_PIPE } from "@nestjs/core";
 import { ResponseInterceptor } from "./interceptors";
 import { createValidationPipe } from "./pipes";
+import { ConfigModule } from "@nestjs/config";
+import { validate } from "./config/env.config";
+import { EnvService } from "./services";
 
 @Module({
-    imports: [],
+    imports: [
+        ConfigModule.forRoot({
+            validate,
+        }),
+    ],
     controllers: [AppController],
     providers: [
         AppService,
         DateService,
+        EnvService,
         {
             provide: APP_INTERCEPTOR,
             useClass: ResponseInterceptor,

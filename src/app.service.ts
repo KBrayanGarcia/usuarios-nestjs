@@ -7,11 +7,14 @@ import { LogsQueryDto } from "./dtos";
 import { readFile } from "fs/promises";
 import { join } from "path";
 import { existsSync } from "fs";
-import { DateService } from "./services";
+import { DateService, EnvService } from "./services";
 
 @Injectable()
 export class AppService {
-    constructor(private readonly dateService: DateService) {}
+    constructor(
+        private readonly dateService: DateService,
+        private readonly envService: EnvService
+    ) {}
 
     // Método para simular un error
     simulateError(): never {
@@ -27,6 +30,7 @@ export class AppService {
 
     getServerStatus(): ServerStatusExtras {
         return {
+            environment: this.envService.get("NODE_ENV"),
             estado: "En ejecución",
             tiempoActivo: FormatUtility.formatUptime(process.uptime()),
             memoria: {

@@ -1,11 +1,9 @@
-import { Body, Controller, Get, Post, Query, Res } from "@nestjs/common";
+import { Body, Controller, Get, Post, Query } from "@nestjs/common";
 import { AppService } from "./app.service";
 import { ResponseUtility } from "./utilitys/response.utility";
 import { ResponseFormat, ServerStatusExtras } from "./interfaces";
-import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
+import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { ValidateDataTestDto, LogsQueryDto, SetServerDateDto } from "./dtos";
-import { Response } from "express";
-import { LogLevel } from "./helper_classes";
 
 @ApiTags("SERVIDOR Y PRUEBAS")
 @Controller("/server")
