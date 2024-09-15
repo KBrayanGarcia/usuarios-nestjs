@@ -3,5 +3,4 @@ export * from "./logger.class";
 export * from "./response.class";
 export * from "./format.class";
 export * from "./error.class";
-export * from "./env_validate.class";
 

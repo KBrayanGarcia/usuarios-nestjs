@@ -4,19 +4,12 @@ import { AppService } from "./app.service";
 import { APP_INTERCEPTOR, APP_PIPE } from "@nestjs/core";
 import { ResponseInterceptor } from "./modules/common/interceptors";
 import { createValidationPipe } from "./modules/common/pipes";
-import { ConfigModule } from "@nestjs/config";
-import { validate } from "./config/env.config";
 import { ServerModule } from "./modules/server/server.module";
 import { CommonModule } from "./modules/common/common.module";
+import { EnvModule } from "./modules/env/env.module";
 
 @Module({
-    imports: [
-        ConfigModule.forRoot({
-            validate,
-        }),
-        ServerModule,
-        CommonModule,
-    ],
+    imports: [ServerModule, CommonModule, EnvModule],
     controllers: [AppController],
     providers: [
         AppService,

@@ -5,7 +5,8 @@ import { CustomErrorClass, FormatClass } from "src/modules/common/classes";
 import { readFile } from "fs/promises";
 import { join } from "path";
 import { existsSync } from "fs";
-import { DateService, EnvService } from "src/modules/common/services";
+import { DateService } from "src/modules/common/services";
+import { EnvService } from "../env/service";
 
 @Injectable()
 export class ServerService {
