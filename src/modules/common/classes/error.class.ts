@@ -1,5 +1,5 @@
 import { HttpStatus } from "@nestjs/common";
-import { CustomErrorClass } from "src/common/classes";
+import { CustomErrorClass } from "src/modules/common/classes";
 
 export class ErrorClass {
     static handleError(error: any): never {

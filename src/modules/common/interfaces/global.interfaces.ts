@@ -1,4 +1,4 @@
-import { Environment } from "src/common/enums";
+import { Environment } from "src/modules/common/enums";
 
 // Agregado el tipo para styles
 export type ResponseStyles = "success" | "error" | "warning" | "info";

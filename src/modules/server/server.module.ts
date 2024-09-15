@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common";
 import { ServerController } from "./server.controller";
 import { ServerService } from "./server.service";
-import { DateService, EnvService } from "src/common/services";
+import { DateService, EnvService } from "src/modules/common/services";
 
 @Module({
     controllers: [ServerController],

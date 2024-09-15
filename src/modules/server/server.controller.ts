@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post, Query } from "@nestjs/common";
 import { ServerService } from "./server.service";
-import { ResponseClass } from "../../common/classes";
-import { ResponseFormat, ServerStatusExtras } from "../../common/interfaces";
+import { ResponseClass } from "src/modules/common/classes";
+import { ResponseFormat, ServerStatusExtras } from "src/modules/common/interfaces";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
 import { ValidateDataTestDto, LogsQueryDto, SetServerDateDto } from "./dtos";
 
