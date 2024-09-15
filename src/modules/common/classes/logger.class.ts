@@ -1,6 +1,6 @@
 import { Logger } from "@nestjs/common";
 import { SuperErrorParams } from "../interfaces/global.interfaces";
-import { winstonLoggerError, winstonLoggerWarn } from "src/config/logger.config";
+import { winstonLoggerError, winstonLoggerWarn } from "src/modules/common/config/logger.config";
 
 export class CustomLoggerClass extends Logger {
     error(object: SuperErrorParams, trace?: string) {
