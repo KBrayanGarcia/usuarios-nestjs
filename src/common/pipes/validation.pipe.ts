@@ -1,7 +1,7 @@
 import { ValidationPipe } from "@nestjs/common";
-import { CustomErrorClass } from "../helper_classes";
+import { CustomErrorClass } from "../classes";
 import { HttpStatus } from "@nestjs/common";
-import { ErrorCampos } from "src/interfaces";
+import { ErrorCampos } from "../interfaces";
 
 export const createValidationPipe = () => {
     return new ValidationPipe({

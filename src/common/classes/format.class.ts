@@ -1,4 +1,4 @@
-export class FormatUtility {
+export class FormatClass {
     static formatCpuUsage(cpu: number): string {
         return `${Math.round(cpu / 1000)} ms`;
     }

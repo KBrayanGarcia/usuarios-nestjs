@@ -1,6 +1,6 @@
 import { ResponseFormat } from "../interfaces";
 
-export class ResponseUtility {
+export class ResponseClass {
     static createResponse<T = object>({
         message = "Accion realizada correctamente",
         styles = "success",

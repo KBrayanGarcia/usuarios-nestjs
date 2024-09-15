@@ -5,16 +5,16 @@ import {
     ResponseStyles,
     ExtrasErrorType,
     ExtrasError,
-} from "src/interfaces";
+} from "../interfaces";
 import { v4 as uuidv4 } from "uuid";
-import { CustomLogger } from "./logger.class";
+import { CustomLoggerClass } from "./logger.class";
 
 /**
  * @description Esta clase se encarga de generar un error personalizado e instancía un error de aplicación, exclusivamente los registra en un archivo de log.
  * @IMPORTANT Esta clase **NO construye el objeto de respuesta**, sino que se encarga de registrar el error en un archivo de log.
  */
 export class CustomErrorClass<T = ExtrasError> extends HttpException {
-    readonly logger = new CustomLogger(CustomErrorClass.name);
+    readonly logger = new CustomLoggerClass(CustomErrorClass.name);
     message: string = "";
     statusCode: number = 500;
     styles: ResponseStyles;

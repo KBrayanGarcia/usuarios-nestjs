@@ -1,33 +1,6 @@
 import { plainToInstance } from "class-transformer";
-import { IsEnum, IsNumber, IsString, validateSync } from "class-validator";
-import { Environment } from "../enums";
-import { CustomErrorClass } from "src/helper_classes";
-
-export class EnvironmentVariables {
-    @IsEnum(Environment)
-    NODE_ENV: Environment;
-
-    @IsNumber()
-    PORT: number;
-
-    @IsString()
-    HOST: string;
-    
-    @IsString()
-    DB_HOST: string;
-
-    @IsNumber()
-    DB_PORT: number;
-
-    @IsString()
-    DB_USERNAME: string;
-
-    @IsString()
-    DB_PASSWORD: string;
-
-    @IsString()
-    DB_DATABASE: string;
-}
+import { validateSync } from "class-validator";
+import { CustomErrorClass, EnvironmentVariables } from "src/common/classes";
 
 export function validate(config: Record<string, unknown>) {
     const validatedConfig = plainToInstance(EnvironmentVariables, config, {

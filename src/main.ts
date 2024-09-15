@@ -1,7 +1,7 @@
 import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
-import { EnvService } from "./services";
+import { EnvService } from "./common/services";
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
@@ -21,6 +21,5 @@ async function bootstrap() {
     const host_listen = envService.get("HOST");
 
     await app.listen(port_listen, host_listen);
-
 }
 bootstrap();
