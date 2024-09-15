@@ -1,5 +1,5 @@
 import { IsEnum, IsNumber, IsString } from "class-validator";
-import { Environment } from "../enums";
+import { Environment } from "../enums/environment.enum";
 
 export class EnvironmentVariables {
     @IsEnum(Environment)

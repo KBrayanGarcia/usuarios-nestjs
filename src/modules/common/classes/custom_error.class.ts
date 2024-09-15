@@ -1,13 +1,8 @@
 import { HttpException } from "@nestjs/common";
-import {
-    CustomErrorParams,
-    SuperErrorParams,
-    ResponseStyles,
-    ExtrasErrorType,
-    ExtrasError,
-} from "../interfaces";
+
 import { v4 as uuidv4 } from "uuid";
 import { CustomLoggerClass } from "./logger.class";
+import { CustomErrorParams, ExtrasError, ExtrasErrorType, ResponseStyles, SuperErrorParams } from "../interfaces/global.interfaces";
 
 /**
  * @description Esta clase se encarga de generar un error personalizado e instancía un error de aplicación, exclusivamente los registra en un archivo de log.

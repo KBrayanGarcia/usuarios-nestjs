@@ -1,7 +1,7 @@
 import { plainToInstance } from "class-transformer";
 import { validateSync } from "class-validator";
-import { CustomErrorClass } from "src/modules/common/classes";
-import { EnvironmentVariables } from "src/modules/env/classes";
+import { EnvironmentVariables } from "../classes/env_validate.class";
+import { CustomErrorClass } from "src/modules/common/classes/custom_error.class";
 
 export function validate(config: Record<string, unknown>) {
     const validatedConfig = plainToInstance(EnvironmentVariables, config, {

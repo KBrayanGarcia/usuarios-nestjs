@@ -1,4 +1,4 @@
-import { ResponseFormat } from "../interfaces";
+import { ResponseFormat } from "../interfaces/global.interfaces";
 
 export class ResponseClass {
     static createResponse<T = object>({

@@ -1,9 +1,12 @@
 import { Body, Controller, Get, Post, Query } from "@nestjs/common";
-import { ServerService } from "./server.service";
-import { ResponseClass } from "src/modules/common/classes";
-import { ResponseFormat, ServerStatusExtras } from "src/modules/common/interfaces";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
-import { ValidateDataTestDto, LogsQueryDto, SetServerDateDto } from "./dtos";
+import { ServerService } from "./services/server.service";
+import { ServerStatusExtras } from "./interfaces/server.interface";
+import { ResponseClass } from "../common/classes/response.class";
+import { ValidateDataTestDto } from "./dtos/validate_data_test.dto";
+import { LogsQueryDto } from "./dtos/logs-query.dto";
+import { SetServerDateDto } from "./dtos/set-server-date.dto";
+import { ResponseFormat } from "../common/interfaces/global.interfaces";
 
 @ApiTags("SERVIDOR Y PRUEBAS")
 @Controller("/server")

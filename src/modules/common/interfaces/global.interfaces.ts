@@ -1,4 +1,3 @@
-import { Environment } from "src/modules/env/enums";
 
 // Agregado el tipo para styles
 export type ResponseStyles = "success" | "error" | "warning" | "info";
@@ -35,22 +34,3 @@ export interface CustomErrorParams<T = ExtrasError> {
 }
 
 export interface SuperErrorParams<T = ExtrasError> extends ResponseFormat<ExtrasErrorType<T>> {}
-
-// Agregar la interfaz ServerStatusExtras
-export interface ServerStatusExtras {
-    environment: Environment;
-    estado: string;
-    tiempoActivo: string;
-    memoria: {
-        rss: string;
-        heapTotal: string;
-        heapUsado: string;
-    };
-    cpu: {
-        usuario: string;
-        sistema: string;
-    };
-    plataforma: string;
-    versionNode: string;
-    idProceso: number;
-}

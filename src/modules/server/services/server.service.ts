@@ -1,12 +1,14 @@
 import { Injectable } from "@nestjs/common";
-import { ServerStatusExtras } from "src/modules/common/interfaces";
-import { ValidateDataTestDto, LogsQueryDto } from "./dtos";
-import { CustomErrorClass, FormatClass } from "src/modules/common/classes";
+import { LogsQueryDto } from "../dtos/logs-query.dto";
+import { ValidateDataTestDto } from "../dtos/validate_data_test.dto";
 import { readFile } from "fs/promises";
 import { join } from "path";
 import { existsSync } from "fs";
-import { DateService } from "src/modules/common/services";
-import { EnvService } from "../env/service";
+import { DateService } from "./date.service";
+import { EnvService } from "src/modules/env/service/env.service";
+import { CustomErrorClass } from "src/modules/common/classes/custom_error.class";
+import { ServerStatusExtras } from "../interfaces/server.interface";
+import { FormatClass } from "src/modules/common/classes/format.class";
 
 @Injectable()
 export class ServerService {

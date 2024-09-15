@@ -1,4 +1,4 @@
-import { LogLevel } from "src/modules/server/enums";
+import { LogLevel } from "src/modules/server/enums/log-level.enum";
 import { createLogger, transports, format } from "winston";
 import "winston-daily-rotate-file";
 

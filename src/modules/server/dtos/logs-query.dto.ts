@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsDateString, IsEnum, IsOptional } from "class-validator";
-import { LogLevel } from "src/modules/server/enums";
+import { LogLevel } from "../enums/log-level.enum";
 
 const format_date = "yyyy-MM-dd";
 const date_value_default: string = "2024-01-01";

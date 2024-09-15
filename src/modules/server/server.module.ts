@@ -1,11 +1,13 @@
 import { Module } from "@nestjs/common";
 import { ServerController } from "./server.controller";
-import { ServerService } from "./server.service";
-import { DateService } from "src/modules/common/services";
-import { EnvService } from "../env/service";
+import { EnvModule } from "src/modules/env/env.module";
+import { DateService } from "./services/date.service";
+import { ServerService } from "./services/server.service";
 
 @Module({
+    imports: [EnvModule],
     controllers: [ServerController],
-    providers: [ServerService, DateService, EnvService],
+    providers: [DateService, ServerService],
+    exports: [ServerService, DateService],
 })
 export class ServerModule {}
