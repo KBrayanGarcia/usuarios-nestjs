@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { map, catchError } from "rxjs/operators";
 import { ResponseClass } from "../classes/response.class";
 import { ErrorClass } from "../classes/error.class";
+import { APP_INTERCEPTOR } from "@nestjs/core";
 
 @Injectable()
 export class ResponseInterceptor implements NestInterceptor {
@@ -13,3 +14,8 @@ export class ResponseInterceptor implements NestInterceptor {
         );
     }
 }
+
+export const ResponseInterceptorProvider = {
+    provide: APP_INTERCEPTOR,
+    useClass: ResponseInterceptor,
+};
