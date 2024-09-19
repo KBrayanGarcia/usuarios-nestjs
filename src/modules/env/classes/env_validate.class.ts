@@ -10,7 +10,4 @@ export class EnvironmentVariables {
 
     @IsString()
     HOST: string;
-
-    @IsString()
-    DATABASE_URL: string;
 }
