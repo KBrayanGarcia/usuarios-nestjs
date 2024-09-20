@@ -1,6 +1,6 @@
 import { ValidationPipe } from "@nestjs/common";
 import { HttpStatus } from "@nestjs/common";
-import { ErrorCampos } from "../interfaces/global.interfaces";
+import { ErrorCampos } from "../../../interfaces/global.interfaces";
 import { CustomErrorClass } from "../classes/custom_error.class";
 import { APP_PIPE } from "@nestjs/core";
 

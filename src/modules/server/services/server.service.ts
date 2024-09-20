@@ -6,9 +6,9 @@ import { join } from "path";
 import { existsSync } from "fs";
 import { DateService } from "./date.service";
 import { EnvService } from "src/modules/env/service/env.service";
-import { CustomErrorClass } from "src/modules/common/classes/custom_error.class";
+import { CustomErrorClass } from "../../../modules/error/classes/custom_error.class";
 import { ServerStatusExtras } from "../interfaces/server.interface";
-import { FormatClass } from "src/modules/common/classes/format.class";
+import { FormatClass } from "../../../modules/server/classes/format.class";
 
 @Injectable()
 export class ServerService {

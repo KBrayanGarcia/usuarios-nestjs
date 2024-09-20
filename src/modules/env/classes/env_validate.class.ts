@@ -10,4 +10,19 @@ export class EnvironmentVariables {
 
     @IsString()
     HOST: string;
+
+    @IsString()
+    DB_HOST: string;
+
+    @IsString()
+    DB_USER: string;
+
+    @IsString()
+    DB_PASSWORD: string;
+
+    @IsString()
+    DB_NAME: string;
+
+    @IsNumber()
+    DB_PORT: number;
 }

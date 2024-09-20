@@ -2,7 +2,7 @@ import { LogLevel } from "src/modules/server/enums/log-level.enum";
 import { createLogger, transports, format } from "winston";
 import "winston-daily-rotate-file";
 
-const carpeta_logs = `${__dirname}/../logs`;
+const carpeta_logs = `${__dirname}/../../../logs`;
 
 // Función para crear un logger de Winston con configuración compartida
 const createWinstonLogger = (level: string, dirname: string) =>
