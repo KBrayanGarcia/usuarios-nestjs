@@ -1,10 +1,18 @@
 import { Module } from "@nestjs/common";
-import { DatabaseService } from "./database.service";
-import { EnvModule } from "../env/env.module";
+import { TypeOrmModule } from "@nestjs/typeorm";
 
 @Module({
-    imports: [EnvModule],
-    providers: [DatabaseService],
-    exports: [DatabaseService],
+    imports: [
+        TypeOrmModule.forRoot({
+            type: "mysql",
+            host: process.env.DB_HOST,
+            port: parseInt(process.env.DB_PORT, 10) || 3306,
+            username: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            database: process.env.DB_NAME,
+            entities: [__dirname + "/../**/*.entity{.ts,.js}"],
+            synchronize: false,
+        }),
+    ],
 })
 export class DatabaseModule {}
