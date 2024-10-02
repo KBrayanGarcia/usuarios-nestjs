@@ -8,21 +8,26 @@ import {
     JoinColumn,
 } from "typeorm";
 
+export const length_nombre = 150;
+export const length_apellido_paterno = 150;
+export const length_apellido_materno = 150;
+export const length_nombre_completo = length_nombre + length_apellido_paterno + length_apellido_materno;
+
 @Entity("users")
 export class UserEntity {
     @PrimaryGeneratedColumn()
     id?: number;
 
-    @Column({ length: 150, nullable: false })
+    @Column({ length: length_nombre, nullable: false })
     nombre: string;
 
-    @Column({ length: 150, nullable: false })
+    @Column({ length: length_apellido_paterno, nullable: false })
     apellido_paterno: string;
 
-    @Column({ length: 150, nullable: true })
+    @Column({ length: length_apellido_materno, nullable: true })
     apellido_materno?: string;
 
-    @Column({ length: 150, nullable: false })
+    @Column({ length: length_nombre_completo, nullable: false })
     nombre_completo: string;
 
     @Column({ length: 255, unique: true, nullable: true })
