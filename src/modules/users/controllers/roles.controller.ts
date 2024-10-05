@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from "@nestjs/common";
 import { RolesService } from "../services/roles.service";
 import { CreateRoleDto } from "../dto/create-role.dto";
 import { UpdateRoleDto } from "../dto/update-role.dto";
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { ResponseService } from "../../response/response.service";
 import { RoleEntity } from "../entity/role.entity";
+import { AuthGuard } from "src/modules/auth/guards/auth.guard";
 
 @ApiTags("ROLES")
 @Controller("roles")
@@ -14,6 +15,8 @@ export class RolesController {
         private readonly responseService: ResponseService
     ) {}
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Crea un nuevo rol" })
     @Post()
     async create(@Body() createRoleDto: CreateRoleDto): Promise<any> {
@@ -23,6 +26,8 @@ export class RolesController {
         });
     }
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Obtiene todos los roles" })
     @Get()
     async findAll() {
@@ -35,6 +40,8 @@ export class RolesController {
         });
     }
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Obtiene un rol por ID" })
     @Get(":id")
     async findOne(@Param("id") id: string): Promise<any> {
@@ -45,6 +52,8 @@ export class RolesController {
         });
     }
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Actualiza un rol por ID" })
     @Patch(":id")
     async update(@Param("id") id: string, @Body() updateRoleDto: UpdateRoleDto): Promise<any> {
@@ -54,6 +63,8 @@ export class RolesController {
         });
     }
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Elimina un rol por ID" })
     @Delete(":id")
     async remove(@Param("id") id: string): Promise<any> {

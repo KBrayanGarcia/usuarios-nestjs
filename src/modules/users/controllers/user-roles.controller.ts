@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from "@nestjs/common";
 import { UserRolesService } from "../services/user-roles.service";
 import { CreateUserRoleDto } from "../dto/create-user-role.dto";
 import { UpdateUserRoleDto } from "../dto/update-user-role.dto";
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { ResponseService } from "../../response/response.service";
 import { UserRoleEntity } from "../entity/user_roles.entity";
+import { AuthGuard } from "src/modules/auth/guards/auth.guard";
 
 @ApiTags("USER ROLES")
 @Controller("user-roles")
@@ -14,6 +15,8 @@ export class UserRolesController {
         private readonly responseService: ResponseService
     ) {}
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Crea un nuevo rol de usuario" })
     @Post()
     async create(@Body() createUserRoleDto: CreateUserRoleDto): Promise<any> {
@@ -23,6 +26,8 @@ export class UserRolesController {
         });
     }
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Obtiene todos los roles de usuario" })
     @Get()
     async findAll() {
@@ -35,6 +40,8 @@ export class UserRolesController {
         });
     }
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Obtiene un rol de usuario por ID" })
     @Get(":id")
     async findOne(@Param("id") id: string): Promise<any> {
@@ -45,6 +52,8 @@ export class UserRolesController {
         });
     }
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Actualiza un rol de usuario por ID" })
     @Patch(":id")
     async update(@Param("id") id: string, @Body() updateUserRoleDto: UpdateUserRoleDto): Promise<any> {
@@ -54,6 +63,8 @@ export class UserRolesController {
         });
     }
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Elimina un rol de usuario por ID" })
     @Delete(":id")
     async remove(@Param("id") id: string): Promise<any> {

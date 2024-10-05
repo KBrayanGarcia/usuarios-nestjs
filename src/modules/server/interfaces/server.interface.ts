@@ -3,6 +3,7 @@ import { Environment } from "src/modules/env/enums/environment.enum";
 // Agregar la interfaz ServerStatusExtras
 export interface ServerStatusExtras {
     environment: Environment;
+    version: string;
     estado: string;
     tiempoActivo: string;
     memoria: {

@@ -9,6 +9,8 @@ import { EnvService } from "src/modules/env/service/env.service";
 import { CustomErrorClass } from "../../../modules/error/classes/custom_error.class";
 import { ServerStatusExtras } from "../interfaces/server.interface";
 import { FormatClass } from "../../../modules/server/classes/format.class";
+import * as fs from "fs";
+
 
 @Injectable()
 export class ServerService {
@@ -30,8 +32,10 @@ export class ServerService {
     }
 
     getServerStatus(): ServerStatusExtras {
+        const packageJson = JSON.parse(fs.readFileSync("package.json", "utf-8"));
         return {
             environment: this.envService.get("NODE_ENV"),
+            version: packageJson.version,
             estado: "En ejecución",
             tiempoActivo: FormatClass.formatUptime(process.uptime()),
             memoria: {

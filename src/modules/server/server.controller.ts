@@ -1,5 +1,5 @@
-import { Body, Controller, Get, Post, Query } from "@nestjs/common";
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { Body, Controller, Get, Post, Query, UseGuards } from "@nestjs/common";
+import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { ServerService } from "./services/server.service";
 import { ServerStatusExtras } from "./interfaces/server.interface";
 import { ValidateDataTestDto } from "./dtos/validate_data_test.dto";
@@ -7,6 +7,7 @@ import { LogsQueryDto } from "./dtos/logs-query.dto";
 import { SetServerDateDto } from "./dtos/set-server-date.dto";
 import { ResponseFormat } from "../../interfaces/global.interfaces";
 import { ResponseService } from "../response/response.service";
+import { AuthGuard } from "../auth/guards/auth.guard";
 
 @ApiTags("SERVIDOR Y PRUEBAS")
 @Controller("/server")
@@ -26,7 +27,9 @@ export class ServerController {
         });
     }
 
+    @UseGuards(AuthGuard)
     @ApiOperation({ summary: "Simular un error" })
+    @ApiBearerAuth()
     @Get("/simulate-error")
     getSimulateError() {
         this.serverService.simulateError();
@@ -41,6 +44,8 @@ export class ServerController {
         description:
             "Valida los datos del usuario, y muestra los datos validados, ademas, en caso de que los datos no sean validados, se mostrara un mensaje de error",
     })
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @Post("/validate-data")
     async validateData(@Body() data: ValidateDataTestDto) {
         const validatedData = await this.serverService.validateData(data);
@@ -54,6 +59,8 @@ export class ServerController {
         summary: "Obtener los logs del servidor",
         description: "Obtiene los logs del servidor segun el nivel y la fecha",
     })
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @Get("/logs")
     async getLogsJson(@Query() query: LogsQueryDto) {
         const logs = await this.serverService.getLogs(query);
@@ -64,6 +71,8 @@ export class ServerController {
     }
 
     @ApiOperation({ summary: "Obtener la fecha del servidor en formato UTC y local" })
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @Get("/date")
     getServerDate() {
         const utcDate = this.serverService.getServerUTCDate();
@@ -75,6 +84,8 @@ export class ServerController {
     }
 
     @ApiOperation({ summary: "Establecer una fecha personalizada en el servidor" })
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @Post("/set-date")
     setServerDate(@Body() data: SetServerDateDto) {
         this.serverService.setServerDate(data.date);
@@ -84,6 +95,8 @@ export class ServerController {
     }
 
     @ApiOperation({ summary: "Restablecer la fecha del servidor a la actual" })
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @Post("/reset-date")
     resetServerDate() {
         this.serverService.resetServerDate();

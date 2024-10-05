@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from "@nestjs/common";
 import { PermissionsService } from "../services/permissions.service";
 import { CreatePermissionDto } from "../dto/create-permission.dto";
 import { UpdatePermissionDto } from "../dto/update-permission.dto";
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { ResponseService } from "../../response/response.service";
 import { PermissionEntity } from "../entity/permissions.entity";
+import { AuthGuard } from "src/modules/auth/guards/auth.guard";
 
 @ApiTags("PERMISSIONS")
 @Controller("permissions")
@@ -14,6 +15,8 @@ export class PermissionsController {
         private readonly responseService: ResponseService
     ) {}
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Crea un nuevo permiso" })
     @Post()
     async create(@Body() createPermissionDto: CreatePermissionDto): Promise<any> {
@@ -23,6 +26,8 @@ export class PermissionsController {
         });
     }
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Obtiene todos los permisos" })
     @Get()
     async findAll() {
@@ -35,6 +40,8 @@ export class PermissionsController {
         });
     }
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Obtiene un permiso por ID" })
     @Get(":id")
     async findOne(@Param("id") id: string): Promise<any> {
@@ -45,6 +52,8 @@ export class PermissionsController {
         });
     }
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Actualiza un permiso por ID" })
     @Patch(":id")
     async update(@Param("id") id: string, @Body() updatePermissionDto: UpdatePermissionDto): Promise<any> {
@@ -54,6 +63,8 @@ export class PermissionsController {
         });
     }
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Elimina un permiso por ID" })
     @Delete(":id")
     async remove(@Param("id") id: string): Promise<any> {

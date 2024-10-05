@@ -1,11 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from "@nestjs/common";
 import { UsersService } from "../services/users.service";
 import { CreateUserDto } from "../dto/create-user.dto";
 import { UpdateUserDto } from "../dto/update-user.dto";
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { ResponseService } from "../../response/response.service";
 import { UserEntity } from "../entity/user.entity";
 import { CustomErrorClass } from "../../error/classes/custom_error.class";
+import { AuthGuard } from "src/modules/auth/guards/auth.guard";
 
 @ApiTags("USERS")
 @Controller("users")
@@ -15,6 +16,8 @@ export class UsersController {
         private readonly responseService: ResponseService
     ) {}
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Crea un nuevo usuario" })
     @Post()
     async create(@Body() createUserDto: CreateUserDto): Promise<any> {
@@ -25,6 +28,8 @@ export class UsersController {
         });
     }
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Obtiene todos los usuarios" })
     @Get()
     async findAll() {
@@ -37,6 +42,8 @@ export class UsersController {
         });
     }
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Obtiene un usuario por ID" })
     @Get(":id")
     async findOne(@Param("id") id: string): Promise<any> {
@@ -53,6 +60,8 @@ export class UsersController {
         });
     }
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Actualiza un usuario por ID" })
     @Patch(":id")
     async update(@Query("id") id: string, @Body() updateUserDto: UpdateUserDto): Promise<any> {
@@ -62,6 +71,8 @@ export class UsersController {
         });
     }
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Elimina un usuario por ID" })
     @Delete(":id")
     async remove(@Param("id") id: string): Promise<any> {

@@ -1,10 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from "@nestjs/common";
 import { RolePermissionsService } from "../services/role-permissions.service";
 import { CreateRolePermissionDto } from "../dto/create-role-permission.dto";
 import { UpdateRolePermissionDto } from "../dto/update-role-permission.dto";
-import { ApiOperation, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { ResponseService } from "../../response/response.service";
 import { RolePermissionEntity } from "../entity/role_permissions.entity";
+import { AuthGuard } from "src/modules/auth/guards/auth.guard";
 
 @ApiTags("ROLE PERMISSIONS")
 @Controller("role-permissions")
@@ -14,6 +15,8 @@ export class RolePermissionsController {
         private readonly responseService: ResponseService
     ) {}
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Crea un nuevo permiso de rol" })
     @Post()
     async create(@Body() createRolePermissionDto: CreateRolePermissionDto): Promise<any> {
@@ -23,6 +26,8 @@ export class RolePermissionsController {
         });
     }
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Obtiene todos los permisos de rol" })
     @Get()
     async findAll() {
@@ -35,6 +40,8 @@ export class RolePermissionsController {
         });
     }
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Obtiene un permiso de rol por ID" })
     @Get(":id")
     async findOne(@Param("id") id: string): Promise<any> {
@@ -45,6 +52,8 @@ export class RolePermissionsController {
         });
     }
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Actualiza un permiso de rol por ID" })
     @Patch(":id")
     async update(@Param("id") id: string, @Body() updateRolePermissionDto: UpdateRolePermissionDto): Promise<any> {
@@ -54,6 +63,8 @@ export class RolePermissionsController {
         });
     }
 
+    @UseGuards(AuthGuard)
+    @ApiBearerAuth()
     @ApiOperation({ summary: "Elimina un permiso de rol por ID" })
     @Delete(":id")
     async remove(@Param("id") id: string): Promise<any> {
