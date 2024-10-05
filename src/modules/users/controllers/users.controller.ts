@@ -1,11 +1,11 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from "@nestjs/common";
-import { UsersService } from "./users.service";
-import { CreateUserDto } from "./dto/create-user.dto";
-import { UpdateUserDto } from "./dto/update-user.dto";
+import { UsersService } from "../services/users.service";
+import { CreateUserDto } from "../dto/create-user.dto";
+import { UpdateUserDto } from "../dto/update-user.dto";
 import { ApiOperation, ApiTags } from "@nestjs/swagger";
-import { ResponseService } from "../response/response.service";
-import { UserEntity } from "./entity/user.entity";
-import { CustomErrorClass } from "../error/classes/custom_error.class";
+import { ResponseService } from "../../response/response.service";
+import { UserEntity } from "../entity/user.entity";
+import { CustomErrorClass } from "../../error/classes/custom_error.class";
 
 @ApiTags("USERS")
 @Controller("users")
@@ -25,7 +25,7 @@ export class UsersController {
         });
     }
 
-    @ApiOperation({ summary: "Obtiene todos los usuarios" }) // Documentación añadida
+    @ApiOperation({ summary: "Obtiene todos los usuarios" })
     @Get()
     async findAll() {
         const users = await this.usersService.findAll();
@@ -37,7 +37,7 @@ export class UsersController {
         });
     }
 
-    @ApiOperation({ summary: "Obtiene un usuario por ID" }) // Documentación añadida
+    @ApiOperation({ summary: "Obtiene un usuario por ID" })
     @Get(":id")
     async findOne(@Param("id") id: string): Promise<any> {
         const user = await this.usersService.findOne(Number(id));
@@ -53,7 +53,7 @@ export class UsersController {
         });
     }
 
-    @ApiOperation({ summary: "Actualiza un usuario por ID" }) // Documentación añadida
+    @ApiOperation({ summary: "Actualiza un usuario por ID" })
     @Patch(":id")
     async update(@Query("id") id: string, @Body() updateUserDto: UpdateUserDto): Promise<any> {
         const updatedUser = await this.usersService.update(+id, updateUserDto);
@@ -62,7 +62,7 @@ export class UsersController {
         });
     }
 
-    @ApiOperation({ summary: "Elimina un usuario por ID" }) // Documentación añadida
+    @ApiOperation({ summary: "Elimina un usuario por ID" })
     @Delete(":id")
     async remove(@Param("id") id: string): Promise<any> {
         await this.usersService.remove(+id);
