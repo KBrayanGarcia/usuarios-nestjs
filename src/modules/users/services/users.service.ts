@@ -5,6 +5,7 @@ import { Repository } from "typeorm";
 import { UserEntity } from "../entity/user.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CustomErrorClass } from "../../error/classes/custom_error.class";
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -15,6 +16,9 @@ export class UsersService {
 
     async create(createUserDto: CreateUserDto): Promise<UserEntity> {
         const user = this.userRepository.create(createUserDto);
+
+        // Encriptar la contraseña antes de guardar
+        user.password = await bcrypt.hash(user.password, 10);
 
         return this.userRepository.save(user);
     }
@@ -48,5 +52,18 @@ export class UsersService {
 
     async getUsers(): Promise<UserEntity[]> {
         return this.userRepository.find();
+    }
+
+    async findUserForAuth(identifier: number | string): Promise<UserEntity | null> {
+        if (typeof identifier === 'number') {
+            return this.findOne(identifier);
+        } else {
+            return this.userRepository.findOne({
+                where: [
+                    { usuario: identifier },
+                    { correo_electronico: identifier }
+                ]
+            });
+        }
     }
 }

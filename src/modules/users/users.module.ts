@@ -30,5 +30,6 @@ import { RolePermissionsController } from "./controllers/role-permissions.contro
         RolePermissionsController,
     ],
     providers: [UsersService, RolesService, PermissionsService, RolePermissionsService, UserRolesService],
+    exports: [UsersService, RolesService, PermissionsService, RolePermissionsService, UserRolesService],
 })
 export class UsersModule {}

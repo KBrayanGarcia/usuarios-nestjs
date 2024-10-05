@@ -10,9 +10,19 @@ import { LoggerModule } from "./modules/logger/logger.module";
 import { ResponseModule } from "./modules/response/response.module";
 import { ErrorModule } from "./modules/error/error.module";
 import { DatabaseModule } from "./modules/database/database.module";
+import { AuthModule } from "./modules/auth/auth.module";
 
 @Module({
-    imports: [ServerModule, EnvModule, UsersModule, ResponseModule, ErrorModule, LoggerModule, DatabaseModule],
+    imports: [
+        ServerModule,
+        EnvModule,
+        UsersModule,
+        ResponseModule,
+        ErrorModule,
+        LoggerModule,
+        DatabaseModule,
+        AuthModule,
+    ],
     controllers: [AppController],
     providers: [AppService, ResponseInterceptorProvider, ValidationPipeProvider],
 })
