@@ -2,7 +2,7 @@ import { NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { EnvService } from "./modules/env/service/env.service";
-import "reflect-metadata"
+import "reflect-metadata";
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
@@ -13,6 +13,7 @@ async function bootstrap() {
         .setTitle("API")
         .setDescription("API para la gestion de la plataforma")
         .setVersion("1.0")
+        .addBearerAuth()
         .build();
 
     const document = SwaggerModule.createDocument(app, config);

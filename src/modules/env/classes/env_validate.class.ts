@@ -25,4 +25,10 @@ export class EnvironmentVariables {
 
     @IsNumber()
     DB_PORT: number;
+
+    @IsString()
+    JWT_SECRET: string;
+
+    @IsString()
+    JWT_EXPIRES_IN: string;
 }
